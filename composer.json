@@ -1,0 +1,13 @@
+{
+    "name": "cguille/columnist",
+    "description": "Convenient utility to process column-based data such as big CSV file, SQL tables…",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Guillaume Charmetant",
+            "email": "cguille.dev@gmail.com"
+        }
+    ],
+    "require": {}
+}
