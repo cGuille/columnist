@@ -9,6 +9,9 @@
             "email": "cguille.dev@gmail.com"
         }
     ],
+    "bin": [
+        "bin/csvcount"
+    ],
     "autoload": {
         "psr-4": {
             "Columnist\\": "src/"

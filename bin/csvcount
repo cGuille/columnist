@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/autoload-loader.php';
+
+use Columnist\Csv\CsvFileReader;
+use Columnist\Csv\CsvFileWriter;
+use Columnist\Processor\Counter;
+
+$writer = CsvFileWriter::toStdout();
+$writer->ignoreHeaders = true;
+
+CsvFileReader::fromStdin()
+    ->pipe(new Counter())
+    ->sinkTo($writer)
+;
