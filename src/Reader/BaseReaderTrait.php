@@ -8,9 +8,22 @@ use Columnist\Writer\WriterInterface;
 
 trait BaseReaderTrait
 {
-    public function pipe(WriterInterface $writer): WriterInterface
+    protected ReaderInterface $attachedReader;
+
+    public function attach(ReaderInterface $reader): void
     {
-        $writer->attach($this);
-        return $writer;
+        $this->attachedReader = $reader;
+    }
+
+    public function pipe(ReaderInterface $reader): ReaderInterface
+    {
+        $reader->attach($this);
+
+        return $reader;
+    }
+
+    public function sinkTo(WriterInterface $writer): void
+    {
+        $writer->readFrom($this);
     }
 }

@@ -28,8 +28,17 @@ interface ReaderInterface
     public function readRow(): ?array;
 
     /**
-     * Attach this reader to the given writer.
-     * Returns the given $writer to enable method chaining.
+     * Chain another reader.
      */
-    public function pipe(WriterInterface $writer): WriterInterface;
+    public function pipe(ReaderInterface $reader): ReaderInterface;
+
+    /**
+     * Required to be able to pipe
+    */
+    public function attach(ReaderInterface $reader): void;
+
+    /**
+     * Configure where to write what we read.
+     */
+    public function sinkTo(WriterInterface $writerInterface): void;
 }

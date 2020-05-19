@@ -8,26 +8,15 @@ use Columnist\Reader\ReaderInterface;
 
 trait BaseWriterTrait
 {
-    protected ReaderInterface $reader;
-
-    public function attach(ReaderInterface $reader): void
+    public function readFrom(ReaderInterface $reader): void
     {
-        $this->reader = $reader;
-    }
-
-    public function flow(): void
-    {
-        if (!$this->reader) {
-            throw new \LogicException('No reader attached');
-        }
-
-        $headers = $this->reader->readHeaders();
+        $headers = $reader->readHeaders();
 
         if ($headers) {
             $this->writeHeaders($headers);
         }
 
-        while ($row = $this->reader->readRow()) {
+        while ($row = $reader->readRow()) {
             $this->writeRow($row);
         }
     }
