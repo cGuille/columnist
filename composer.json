@@ -12,6 +12,7 @@
     "bin": [
         "bin/csvcount",
         "bin/csvhead",
+        "bin/csvselect",
         "bin/csvslice"
     ],
     "autoload": {
