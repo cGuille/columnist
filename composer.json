@@ -10,7 +10,8 @@
         }
     ],
     "bin": [
-        "bin/csvcount"
+        "bin/csvcount",
+        "bin/csvslice"
     ],
     "autoload": {
         "psr-4": {

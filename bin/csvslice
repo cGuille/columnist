@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/autoload-loader.php';
+
+use Columnist\Csv\CsvFileReader;
+use Columnist\Csv\CsvFileWriter;
+use Columnist\Processor\Range;
+
+$lowerBound = (int) ($argv[1] ?? 0);
+$upperBound = isset($argv[2]) ? (int) $argv[2] : null;
+
+CsvFileReader::fromStdin()
+    ->pipe(new Range($lowerBound, $upperBound))
+    ->sinkTo(CsvFileWriter::toStdout())
+;
