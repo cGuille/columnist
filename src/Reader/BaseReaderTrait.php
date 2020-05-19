@@ -4,22 +4,16 @@ declare(strict_types=1);
 
 namespace Columnist\Reader;
 
+use Columnist\Processor\ProcessorInterface;
 use Columnist\Writer\WriterInterface;
 
 trait BaseReaderTrait
 {
-    protected ReaderInterface $attachedReader;
-
-    public function attach(ReaderInterface $reader): void
+    public function pipe(ProcessorInterface $processor): ProcessorInterface
     {
-        $this->attachedReader = $reader;
-    }
+        $processor->attach($this);
 
-    public function pipe(ReaderInterface $reader): ReaderInterface
-    {
-        $reader->attach($this);
-
-        return $reader;
+        return $processor;
     }
 
     public function sinkTo(WriterInterface $writer): void

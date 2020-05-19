@@ -8,4 +8,5 @@ use Columnist\Reader\ReaderInterface;
 
 interface ProcessorInterface extends ReaderInterface
 {
+    public function attach(ReaderInterface $reader): void;
 }

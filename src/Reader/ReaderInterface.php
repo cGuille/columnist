@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Columnist\Reader;
 
+use Columnist\Processor\ProcessorInterface;
 use Columnist\Writer\WriterInterface;
 
 interface ReaderInterface
@@ -28,14 +29,9 @@ interface ReaderInterface
     public function readRow(): ?array;
 
     /**
-     * Chain another reader.
+     * Chain a processor.
      */
-    public function pipe(ReaderInterface $reader): ReaderInterface;
-
-    /**
-     * Required to be able to pipe
-    */
-    public function attach(ReaderInterface $reader): void;
+    public function pipe(ProcessorInterface $reader): ProcessorInterface;
 
     /**
      * Configure where to write what we read.
