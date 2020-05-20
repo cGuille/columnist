@@ -17,10 +17,12 @@ trait BaseWriterTrait
         }
 
         while ($row = $reader->readRow()) {
-            $this->writeRow($row);
+            if (!$this->writeRow($row)) {
+                break;
+            }
         }
     }
 
     abstract protected function writeHeaders(array $headers): void;
-    abstract protected function writeRow(array $row): void;
+    abstract protected function writeRow(array $row): bool;
 }

@@ -65,14 +65,14 @@ class CsvFileWriter extends AbstractWriter
         }
     }
 
-    public function writeRow(array $row): void
+    public function writeRow(array $row): bool
     {
-        $this->writeEntry($row);
+        return $this->writeEntry($row);
     }
 
-    private function writeEntry(array $row)
+    private function writeEntry(array $row): bool
     {
-        return \fputcsv(
+        return false !== @\fputcsv(
             $this->output,
             $row,
             $this->options->delimiter,
