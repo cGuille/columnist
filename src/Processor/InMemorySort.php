@@ -9,7 +9,7 @@ use InvalidArgumentException;
 class InMemorySort extends AbstractProcessor
 {
     private array $sortFields;
-    private array $buffer = [];
+    private array $buffer;
     private bool $buffered = false;
     private int $nextRowIndex;
 
@@ -43,32 +43,25 @@ class InMemorySort extends AbstractProcessor
 
     private function bufferRows(): void
     {
+        $this->buffer = [];
+
+        while ($row = parent::readRow()) {
+            $this->buffer[] = $row;
+        }
+
         $this->buffered = true;
-
-        do {
-            $row = parent::readRow();
-
-            if ($row) {
-                $this->buffer[] = $row;
-            }
-        } while ($row);
     }
 
     private function sortRows(): void
     {
         usort($this->buffer, function (array $left, array $right) {
-            $i = 0;
-
-            do {
-                $sortField = $this->sortFields[$i];
-
+            foreach ($this->sortFields as $sortField) {
                 $result = $left[$sortField] <=> $right[$sortField];
+
                 if ($result !== 0) {
                     return $result;
                 }
-
-                ++$i;
-            } while (isset($this->sortFields[$i]));
+            }
 
             return 0;
         });
