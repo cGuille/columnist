@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/autoload-loader.php';
+
+use Columnist\Csv\CsvFileBatchWriter;
+use Columnist\Csv\CsvFileReader;
+
+$batchSize = (int) ($argv[1] ?? 1000);
+$dirPath = $argv[2] ?? '.';
+$nameTemplate = $argv[3] ?? 'batch-%1$06d.csv';
+
+$pathTemplate = $dirPath . DIRECTORY_SEPARATOR . $nameTemplate;
+
+CsvFileReader::fromStdin()->sinkTo(new CsvFileBatchWriter($batchSize, $pathTemplate));

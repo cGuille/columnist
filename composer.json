@@ -15,7 +15,8 @@
         "bin/csvpage",
         "bin/csvselect",
         "bin/csvslice",
-        "bin/csvsortby"
+        "bin/csvsortby",
+        "bin/csvsplit"
     ],
     "autoload": {
         "psr-4": {
