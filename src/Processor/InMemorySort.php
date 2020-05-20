@@ -72,6 +72,5 @@ class InMemorySort extends AbstractProcessor
 
             return 0;
         });
-
     }
 }
