@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/autoload-loader.php';
+
+use Columnist\Csv\CsvFileReader;
+use Columnist\Csv\CsvFileWriter;
+use Columnist\Processor\Dedup;
+
+$fields = array_slice($argv, 1);
+
+CsvFileReader::fromStdin()
+    ->pipe(new Dedup(...$fields))
+    ->sinkTo(CsvFileWriter::toStdout())
+;
