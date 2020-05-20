@@ -17,6 +17,8 @@ class Counter extends AbstractProcessor
 
     public function readHeaders(): ?array
     {
+        parent::readHeaders();
+
         return [$this->columnName];
     }
 

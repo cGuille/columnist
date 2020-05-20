@@ -9,10 +9,13 @@ use Columnist\Csv\CsvFileReader;
 use Columnist\Csv\CsvFileWriter;
 use Columnist\Processor\Counter;
 
+$opts = getopt('s', ['skip-headers']);
+$skipHeadersParsing = array_key_exists('s', $opts) || array_key_exists('skip-headers', $opts);
+
+$reader = CsvFileReader::fromStdin();
+$reader->parseHeaders = !$skipHeadersParsing;
+
 $writer = CsvFileWriter::toStdout();
 $writer->ignoreHeaders = true;
 
-CsvFileReader::fromStdin()
-    ->pipe(new Counter())
-    ->sinkTo($writer)
-;
+$reader->pipe(new Counter())->sinkTo($writer);
