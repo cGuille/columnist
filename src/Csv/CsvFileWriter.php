@@ -9,12 +9,14 @@ use InvalidArgumentException;
 
 class CsvFileWriter extends AbstractWriter
 {
-    public const MODE_ERASE = 'erase';
     public const MODE_APPEND = 'append';
+    public const MODE_CREATE = 'create';
+    public const MODE_ERASE = 'erase';
 
     private const MODES = [
-        self::MODE_ERASE => 'w',
         self::MODE_APPEND => 'a',
+        self::MODE_CREATE => 'x',
+        self::MODE_ERASE => 'w',
     ];
 
     public Options $options;
@@ -26,7 +28,7 @@ class CsvFileWriter extends AbstractWriter
     private $output;
     private bool $ownOutput;
 
-    public static function toPath(string $filePath, string $mode = self::MODE_ERASE): self
+    public static function toPath(string $filePath, string $mode = self::MODE_CREATE): self
     {
         $fileMode = self::fileMode($mode);
         $output = \fopen($filePath, $fileMode);
